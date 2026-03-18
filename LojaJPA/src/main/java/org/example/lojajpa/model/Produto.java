@@ -11,6 +11,7 @@ import lombok.Setter;
 @Entity //entidade relacinamento tabela
 @Getter //Criou Getter pelo lombok
 @Setter //Criou Setter pelo lombok
+@Table //Cria tabela
 public class Produto {
 
     @Id //declara q é um id, torna ele uma chave primária

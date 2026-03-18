@@ -21,8 +21,9 @@ public class ProdutoService {
     }
 
     public Produto buscar(Long id){
-        return repository.findById(id).orElse(null); //Procura o objeto por Id, caso contrário retorna nulo;
-    }
+        return repository.findById(id)//esse código da jogando o erro durante a runtime
+                .orElseThrow(() -> new RuntimeException("Produto não encontrado!")); //Procura o objeto por Id, caso contrário retorna nulo;
+    }//Or else Thorw vai jogar uma exceção lá pro handler (mesmo estando no service)
 
     public List<Produto> listar(){
         return repository.findAll();
@@ -30,5 +31,9 @@ public class ProdutoService {
 
     public void deletar(Long id){
         repository.deleteById(id); //Não precisa de return pq é um void
+    }
+
+    public List<Produto> buscarPorNome(String nome){
+        return repository.findByNomeContainingIgnoreCase(nome);
     }
 }

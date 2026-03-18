@@ -1,6 +1,7 @@
 package org.example.lojajpa.controller;
 
 
+import jakarta.validation.Valid;
 import org.example.lojajpa.model.Produto;
 import org.example.lojajpa.repository.ProdutoRepository;
 import org.example.lojajpa.service.ProdutoService;
@@ -24,7 +25,29 @@ public class ProdutoController {
     }
 
     @PostMapping
-    public Produto criar(@RequestBody Produto produto){//o request vai transformar o objeto em JSON pra fazer a comunicação
+    public Produto criar(@RequestBody @Valid Produto produto){//o request vai transformar o objeto em JSON pra fazer a comunicação
         return service.inserir(produto);
+    } //@Valid apenas procura a validação pra ver se os parâmetros estão válidos
+
+    @GetMapping("/{id}")
+    public Produto buscar(@PathVariable Long id){
+        return service.buscar(id);
     }
+
+    @PutMapping("/{id}")
+    public Produto atualizar(@PathVariable Long id, @RequestBody @Valid Produto produto){ //Pegamos o ID antigo e o produto antigo
+        produto.setId(id);//feito isso nós mudamos as informações que desejamos e setamos o id "novo" para sobreescrever os dados
+        return service.inserir(produto);//Ai salvamos
+    }
+
+    @DeleteMapping("/{id}")
+        public void deletar(@PathVariable Long id){
+            service.deletar(id);
+    }
+
+    @GetMapping("/buscar")
+    public List<Produto> buscarPorNome(@RequestParam String nome){
+        return service.buscarPorNome(nome);
+    }
+
 }
