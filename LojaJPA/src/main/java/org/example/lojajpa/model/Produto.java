@@ -8,7 +8,7 @@ import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity //entidade relacinamento tabela
+@Entity //entidade relacinamento tabela isso ai é do JPA
 @Getter //Criou Getter pelo lombok
 @Setter //Criou Setter pelo lombok
 @Table //Cria tabela
